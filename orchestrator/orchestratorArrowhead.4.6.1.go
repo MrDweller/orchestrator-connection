@@ -27,6 +27,7 @@ type OrchestrationDTO struct {
 	RequesterSystem    models.SystemDefinition `json:"requesterSystem"`
 	RequestedService   RequestedService        `json:"requestedService"`
 	OrchestrationFlags map[string]bool         `json:"orchestrationFlags"`
+	RequesterCloud     models.RequesterCloud   `json:"requesterCloud"`
 }
 
 type RequestedService struct {
@@ -47,7 +48,7 @@ func (orchestrator OrchestrationArrowhead_4_6_1) Connect() error {
 	return nil
 }
 
-func (orchestrator OrchestrationArrowhead_4_6_1) Orchestration(requestedService models.ServiceDefinition, requesterSystem models.SystemDefinition) (*models.OrchestrationResponse, error) {
+func (orchestrator OrchestrationArrowhead_4_6_1) Orchestration(requestedService models.ServiceDefinition, requesterSystem models.SystemDefinition, requesterCloud models.RequesterCloud) (*models.OrchestrationResponse, error) {
 	orchestrationDTO := OrchestrationDTO{
 		RequesterSystem: requesterSystem,
 		RequestedService: RequestedService{
@@ -56,7 +57,9 @@ func (orchestrator OrchestrationArrowhead_4_6_1) Orchestration(requestedService 
 			},
 			ServiceDefinitionRequirement: requestedService.ServiceDefinition,
 		},
+		RequesterCloud: requesterCloud,
 	}
+
 	payload, err := json.Marshal(orchestrationDTO)
 
 	if err != nil {
