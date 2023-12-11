@@ -48,7 +48,7 @@ func (orchestrator OrchestrationArrowhead_4_6_1) Connect() error {
 	return nil
 }
 
-func (orchestrator OrchestrationArrowhead_4_6_1) Orchestration(requestedService models.ServiceDefinition, requesterSystem models.SystemDefinition, requesterCloud models.RequesterCloud) (*models.OrchestrationResponse, error) {
+func (orchestrator OrchestrationArrowhead_4_6_1) Orchestration(requestedService models.ServiceDefinition, requesterSystem models.SystemDefinition, orchestrationFlags map[string]bool, requesterCloud models.RequesterCloud) (*models.OrchestrationResponse, error) {
 	orchestrationDTO := OrchestrationDTO{
 		RequesterSystem: requesterSystem,
 		RequestedService: RequestedService{
@@ -57,7 +57,8 @@ func (orchestrator OrchestrationArrowhead_4_6_1) Orchestration(requestedService 
 			},
 			ServiceDefinitionRequirement: requestedService.ServiceDefinition,
 		},
-		RequesterCloud: requesterCloud,
+		OrchestrationFlags: orchestrationFlags,
+		RequesterCloud:     requesterCloud,
 	}
 
 	payload, err := json.Marshal(orchestrationDTO)
