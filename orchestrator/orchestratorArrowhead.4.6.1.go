@@ -23,15 +23,10 @@ type OrchestrationArrowhead_4_6_1 struct {
 	models.CertificateInfo
 }
 
-type AdditionalParametersArrowhead_4_6_1 struct {
-	OrchestrationFlags map[string]bool       `json:"orchestrationFlags"`
-	RequesterCloud     models.RequesterCloud `json:"requesterCloud"`
-}
-
 type OrchestrationDTO struct {
 	RequesterSystem  models.SystemDefinition `json:"requesterSystem"`
 	RequestedService RequestedService        `json:"requestedService"`
-	AdditionalParametersArrowhead_4_6_1
+	models.AdditionalParametersArrowhead_4_6_1
 }
 
 type RequestedService struct {
@@ -61,7 +56,7 @@ func (orchestrator OrchestrationArrowhead_4_6_1) Orchestration(requestedService 
 			},
 			ServiceDefinitionRequirement: requestedService,
 		},
-		AdditionalParametersArrowhead_4_6_1: additionalParameters.(AdditionalParametersArrowhead_4_6_1),
+		AdditionalParametersArrowhead_4_6_1: additionalParameters.(models.AdditionalParametersArrowhead_4_6_1),
 	}
 
 	payload, err := json.Marshal(orchestrationDTO)
