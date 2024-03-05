@@ -23,11 +23,15 @@ type OrchestrationArrowhead_4_6_1 struct {
 	models.CertificateInfo
 }
 
+type AdditionalParametersArrowhead_4_6_1 struct {
+	OrchestrationFlags map[string]bool       `json:"orchestrationFlags"`
+	RequesterCloud     models.RequesterCloud `json:"requesterCloud"`
+}
+
 type OrchestrationDTO struct {
-	RequesterSystem    models.SystemDefinition `json:"requesterSystem"`
-	RequestedService   RequestedService        `json:"requestedService"`
-	OrchestrationFlags map[string]bool         `json:"orchestrationFlags"`
-	RequesterCloud     models.RequesterCloud   `json:"requesterCloud"`
+	RequesterSystem  models.SystemDefinition `json:"requesterSystem"`
+	RequestedService RequestedService        `json:"requestedService"`
+	AdditionalParametersArrowhead_4_6_1
 }
 
 type RequestedService struct {
@@ -48,17 +52,16 @@ func (orchestrator OrchestrationArrowhead_4_6_1) Connect() error {
 	return nil
 }
 
-func (orchestrator OrchestrationArrowhead_4_6_1) Orchestration(requestedService models.ServiceDefinition, requesterSystem models.SystemDefinition, orchestrationFlags map[string]bool, requesterCloud models.RequesterCloud) (*models.OrchestrationResponse, error) {
+func (orchestrator OrchestrationArrowhead_4_6_1) Orchestration(requestedService string, requesterSystem models.SystemDefinition, additionalParameters any) (*models.OrchestrationResponse, error) {
 	orchestrationDTO := OrchestrationDTO{
 		RequesterSystem: requesterSystem,
 		RequestedService: RequestedService{
 			InterfaceRequirements: []string{
 				"HTTP-SECURE-JSON",
 			},
-			ServiceDefinitionRequirement: requestedService.ServiceDefinition,
+			ServiceDefinitionRequirement: requestedService,
 		},
-		OrchestrationFlags: orchestrationFlags,
-		RequesterCloud:     requesterCloud,
+		AdditionalParametersArrowhead_4_6_1: additionalParameters.(AdditionalParametersArrowhead_4_6_1),
 	}
 
 	payload, err := json.Marshal(orchestrationDTO)
