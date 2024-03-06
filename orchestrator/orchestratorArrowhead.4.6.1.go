@@ -47,7 +47,7 @@ func (orchestrator OrchestrationArrowhead_4_6_1) Connect() error {
 	return nil
 }
 
-func (orchestrator OrchestrationArrowhead_4_6_1) Orchestration(requestedService string, requesterSystem models.SystemDefinition, additionalParameters any) (*models.OrchestrationResponse, error) {
+func (orchestrator OrchestrationArrowhead_4_6_1) Orchestration(requestedService string, requesterSystem models.SystemDefinition, additionalParameters interface{}) (*models.OrchestrationResponse, error) {
 	orchestrationDTO := OrchestrationDTO{
 		RequesterSystem: requesterSystem,
 		RequestedService: RequestedService{
@@ -58,6 +58,9 @@ func (orchestrator OrchestrationArrowhead_4_6_1) Orchestration(requestedService 
 		},
 		AdditionalParametersArrowhead_4_6_1: additionalParameters.(models.AdditionalParametersArrowhead_4_6_1),
 	}
+
+	fmt.Println(additionalParameters.(models.AdditionalParametersArrowhead_4_6_1))
+	fmt.Println(orchestrationDTO)
 
 	payload, err := json.Marshal(orchestrationDTO)
 
