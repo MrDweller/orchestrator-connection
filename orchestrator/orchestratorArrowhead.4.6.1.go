@@ -47,13 +47,11 @@ func (orchestrator OrchestrationArrowhead_4_6_1) Connect() error {
 	return nil
 }
 
-func (orchestrator OrchestrationArrowhead_4_6_1) Orchestration(requestedService string, requesterSystem models.SystemDefinition, additionalParameters interface{}) (*models.OrchestrationResponse, error) {
+func (orchestrator OrchestrationArrowhead_4_6_1) Orchestration(requestedService string, interfaces []string, requesterSystem models.SystemDefinition, additionalParameters interface{}) (*models.OrchestrationResponse, error) {
 	orchestrationDTO := OrchestrationDTO{
 		RequesterSystem: requesterSystem,
 		RequestedService: RequestedService{
-			InterfaceRequirements: []string{
-				"HTTP-SECURE-JSON",
-			},
+			InterfaceRequirements:        interfaces,
 			ServiceDefinitionRequirement: requestedService,
 		},
 		AdditionalParametersArrowhead_4_6_1: additionalParameters.(models.AdditionalParametersArrowhead_4_6_1),

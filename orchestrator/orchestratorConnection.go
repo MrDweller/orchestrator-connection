@@ -9,7 +9,7 @@ import (
 
 type OrchestratorConnection interface {
 	Connect() error
-	Orchestration(requestedService string, requesterSystem models.SystemDefinition, additionalParameters interface{}) (*models.OrchestrationResponse, error)
+	Orchestration(requestedService string, interfaces []string, requesterSystem models.SystemDefinition, additionalParameters interface{}) (*models.OrchestrationResponse, error)
 }
 
 type OrchestratorImplementationType string
