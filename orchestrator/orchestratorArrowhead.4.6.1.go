@@ -59,12 +59,7 @@ func (orchestrator OrchestrationArrowhead_4_6_1) Orchestration(requestedService 
 		AdditionalParametersArrowhead_4_6_1: additionalParameters.(models.AdditionalParametersArrowhead_4_6_1),
 	}
 
-	fmt.Println(additionalParameters.(models.AdditionalParametersArrowhead_4_6_1))
-	fmt.Println(orchestrationDTO)
-
 	payload, err := json.Marshal(orchestrationDTO)
-
-	fmt.Println(string(payload))
 
 	if err != nil {
 		return nil, err
