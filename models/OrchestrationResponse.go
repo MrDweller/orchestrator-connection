@@ -5,6 +5,7 @@ type OrchestrationResponse struct {
 }
 
 type Result struct {
-	Provider   SystemDefinition `json:"provider"`
-	ServiceUri string           `json:"serviceUri"`
+	Provider   SystemDefinition  `json:"provider"`
+	ServiceUri string            `json:"serviceUri"`
+	Metadata   map[string]string `json:"metadata"`
 }
